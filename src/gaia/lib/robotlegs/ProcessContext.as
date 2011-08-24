@@ -2,6 +2,8 @@ package gaia.lib.robotlegs
 {
 	import gaia.lib.robotlegs.process.ProcessMap;
 
+	import org.robotlegs.base.CommandMap;
+	import org.robotlegs.core.ICommandMap;
 	import org.robotlegs.core.IInjector;
 	import org.robotlegs.mvcs.Context;
 
@@ -19,7 +21,13 @@ package gaia.lib.robotlegs
 			super(container, autoStartup);
 		}
 		
-		public function get processMap():ProcessMap
+		override protected function get commandMap():ICommandMap
+		{
+			_controllerInjector ||= createChildInjector();
+			return _commandMap ||= new CommandMap(eventDispatcher, _controllerInjector, reflector);
+		}
+		
+		protected function get processMap():ProcessMap
 		{
 			_controllerInjector ||= createChildInjector();
 			return _processMap ||= new ProcessMap(_controllerInjector, _reflector);

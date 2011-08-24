@@ -19,13 +19,7 @@ package gaia.lib.robotlegs.process
 		
 		final protected function complete(...arguments):void
 		{
-			onComplete();
 			completed.dispatch.apply(null, arguments);
-		}
-
-		protected function onComplete():void
-		{
-			// to be overridden
 		}
 		
 	}
